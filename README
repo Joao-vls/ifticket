@@ -1,1 +1,12 @@
+REQUISITOS:
+
+ Ativar o mod_rewrite  e configurar apache
+
+
+ Ativar biblioteca gd
+
+ Versao:
  
+ Versão do servidor: 8.0.33 - MySQL Community Server - GPL
+ PHP 8.2.7
+ Apache/2.4.57
