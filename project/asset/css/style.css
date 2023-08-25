@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin-top: 80px;
+    background-color: #87ec7a78;
+
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 45px;
+    top: 0;
+    background-color: #043f00;
+    z-index: 10;
+}
+
+.loginc {
+    /* position: absolute; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    float: right;
+    min-width: 20%;
+    max-width: 30%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.loginc input {
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    margin: 10px;
+    margin-top: 15px;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.loginc a {
+    text-decoration: none;
+    margin-left: 4px;
+    font-size: 15px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #387734;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 60px;
+    margin-top: 15px;
+}
+
+.loginc input:hover {
+    background-color: #a4baa1;
+}
+
+.loginc input[type="submit"] {
+    color: #fff;
+    background-color: #043f00;
+   
+}
+
+.image {
+    position: absolute;
+    background-color: #87ec7a78;
+    float: left;
+    width: 55%;
+    height: 88%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.image img {
+    max-width: 100%;
+    max-height: 42%;
+}
+
+.image button {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    background-color: #1da911;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+header h1 {
+    position: absolute;
+    color: #fff;
+    display: inline-block;
+    top: 5px;
+    font-size: 33px;
+    font-family: sans-serif;
+}
+
+header span {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background-image: url("../imagens/logo.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+header nav {
+    float: right;
+}
+
+header nav a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 45px;
+    margin-top: 15px;
+}
+
+.info_reca {
+    position: absolute;
+    left: 2%;
+}
+
+.infos {
+    width: 137px;
+    height: 100px;
+}
+
+.infos p {
+    font-size: 15px;
+    font-family: sans-serif;
+    margin-top: 10px;
+    width: 100%;
+    height: 20px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    border: #043f00 solid 1px;
+}
+
+.info_reca a,
+.image a {
+    width: 100%;
+    padding: 15px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    background-color: #1da911;
+    color: #fff;
+    cursor: pointer;
+}
