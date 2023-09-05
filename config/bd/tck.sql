@@ -32,13 +32,13 @@ create table gasto(
     foreign key (aluno_fk) references aluno (matricula)
 );
 
-insert into curso(nome_curso , nivel) values ('bsi','superior'); -- id auto increment
+insert into curso(nome_curso , nivel) values ('bsi','superior');
 insert into curso(nome_curso , nivel) values ('adm','superior');
 insert into curso(nome_curso , nivel) values ('ti','medio');
 insert into curso(nome_curso , nivel) values ('ta','medio');
 
 
--- Usuario tem que estar pre cadastrado
+-- Usuario tem que estar pre cadastrado para pedir ticket
 insert into aluno(curso_fk, senha ,  nome) values (1,"$2y$10$hlOUXSLqCYoawn/B5zT/iu0eMaiRUciT6NulM9gg.gzsAdVv21obm","Joaaa"), 
  (1,"$2y$10$hlOUXSLqCYoawn/B5zT/iu0eMaiRUciT6NulM9gg.gzsAdVv21obm","Q?"),
  (2,"$2y$10$hlOUXSLqCYoawn/B5zT/iu0eMaiRUciT6NulM9gg.gzsAdVv21obm","Quem"),
@@ -84,6 +84,7 @@ update aluno set valor=valor-(select sum(valor) from gasto where aluno_fk=aluno.
 update aluno set valor=valor-(select sum(valor) from gasto where aluno_fk=aluno.matricula) where matricula=5;
 
 -- info 1 : quantidade de aluno que possuem ticket
+-- pode ser necessario para aumentar ou diminuir a demanda
 select count(matricula) from aluno where possui_ti=1;
 
 -- info 2 : Saldo da conta aluno 
@@ -93,10 +94,12 @@ select valor,nome from aluno where possui_ti is true;
 select avg(valor) as media_pagamento from pagamento;
 
 -- info 4 : dias da semana que mais tem alunos consumindo
+-- pode ser necessario para aumentar a demanda dos serviços nos dias que mais tem alunos
 select dayname(data_gasto) as dia,count(data_gasto) as quantidade_alunos from  gasto group by dayname(data_gasto) order by  count(data_gasto) desc;
 
 
 -- info 5 : cursos que mais tem alunos com ticket
+-- pode ser necessario para saber qual nivel de curso tem mais demanda de tickets
 select curso.nome_curso, count(*), curso.nivel from curso 
 inner join aluno on aluno.curso_fk = curso.codigo and aluno.possui_ti is true group by curso.nome_curso,curso.nivel;
 
