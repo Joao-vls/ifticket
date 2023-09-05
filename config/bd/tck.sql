@@ -90,8 +90,9 @@ select count(matricula) from aluno where possui_ti=1;
 -- info 2 : Saldo da conta aluno 
 select valor,nome from aluno where possui_ti is true;
 
--- info 3 : media de gastos com pagamentos
-select avg(valor) as media_pagamento from pagamento;
+-- info 3 : lucro com pagamentos
+-- pode ser necessario para saber o quanto gastar com os serviços
+select sum(valor) as lucro from pagamento;
 
 -- info 4 : dias da semana que mais tem alunos consumindo
 -- pode ser necessario para aumentar a demanda dos serviços nos dias que mais tem alunos
