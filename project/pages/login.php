@@ -18,9 +18,7 @@ include "../config/db.php";
 
     $usr['usuario'] = $my_Db_Connection->quote($_POST['identificador']);
     $usr['senha'] = $_POST['senha'];
-    $sql_bus = "select * from aluno 
-    inner join ticket on aluno.matricula = ticket.codigo_fk and aluno.matricula=
-    " . $usr['usuario'];
+    $sql_bus = "select * from aluno where matricula=" . $usr['usuario'] . "and possui_ti=1";
     $bus = $my_Db_Connection->prepare($sql_bus);
     $bus->execute();
     $count = $bus->rowCount();
@@ -68,7 +66,9 @@ include "../config/db.php";
         <nav><a href="#">Ajuda</a> <a href="#">Forum</a></nav>
     </header>
     <form method="post" class="loginc">
+        <label for="identificador">Numero da matricula :</label>
         <input type="text" name="identificador" id="identificador">
+        <label for="senha">senha :</label>
         <input type="password" name="senha" id="senha">
         <input type="submit" value="Entrar">
         <a href="home">Esqueceu senha?</a>

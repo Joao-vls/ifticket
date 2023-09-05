@@ -31,7 +31,7 @@ if (!isset($_SESSION['matricula'])) {
 </div>
 <div class="info_reca">
     <section class="infos" ><i class="fa-solid fa-wallet fa-2xl"></i> Saldo da conta:
-        <?php echo "<p >".$_SESSION['valor']."</p>"; ?>
+        <?php echo "<p>".$_SESSION['valor']."</p>"; ?>
     </section>
     <a href="recarregar"><i class="fa-regular fa-address-card fa-2xl"></i> Recarregar</a>
 </div>

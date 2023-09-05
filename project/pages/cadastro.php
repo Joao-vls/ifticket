@@ -17,24 +17,22 @@ if (
     include "../config/db.php";
     $id = $my_Db_Connection->quote($_POST['matricula']);
     $nome = $my_Db_Connection->quote($_POST['nome']);
-    $sql_bus = "SELECT * FROM aluno WHERE matricula = " . $id . " && nome=" . $nome;
+    $sql_bus = "SELECT * FROM aluno WHERE matricula = " . $id;
     $bus = $my_Db_Connection->prepare($sql_bus);
     $bus->execute();
-    if ($bus->rowCount() == 1) {
-       
+    $count = $bus->rowCount();
+    if ($count == 1) {
         $result = $bus->fetch(PDO::FETCH_ASSOC);
         if ($result['nome'] != $_POST['nome']) {
+            $bus = 0;
             die("nome invalido");
         }
+        if ($result['possui_ti']) {
+            header("location:login");
+        }
         if (password_verify($_POST['senha'], $result['senha'])) {
+            $locals=0;
             unset($result['senha']);
-            $sql_bus = "select * from aluno inner join ticket on aluno.matricula = ticket.codigo_fk and aluno.matricula=" . $id ;
-            $bus = $my_Db_Connection->prepare($sql_bus);
-            $bus->execute();
-            if ($bus->rowCount() == 1) {
-                header("location:login");
-                exit();
-            }
             if (isset($_FILES['imagem_perfil']) && $_FILES['imagem_perfil']['error'] === UPLOAD_ERR_OK) {
                 $img = $_FILES['imagem_perfil'];
 
@@ -45,33 +43,26 @@ if (
                 if ($img['error']) {
                     die("erro ao salvar imagem");
                 }
-                $locals = "./asset/imagens/gerarcartao/fotoperfil/" . $id."/";
+                $locals = "./asset/imagens/gerarcartao/fotoperfil/" . $id . "/";
                 if (!is_dir($locals)) {
-                    mkdir($locals, 0755);
+                    mkdir($locals, 0777);
                 }
                 $nome_img = uniqid();
                 $locals = $locals . $nome_img . '.' . $tipo;
                 $img_ok = move_uploaded_file($img['tmp_name'], $locals);
 
-                if ($img_ok) {
-                    $my_Insert_Statement = $my_Db_Connection->prepare("INSERT INTO arquivos (local_arq,tipo,data_cria,aluno_fk) VALUES (:localar, :tp, :datc,:aluno)");
-                    $my_Insert_Statement->bindParam(':localar', $locals);
-                    $tpa ="imagem_perfil";
-                    $my_Insert_Statement->bindParam(':tp', $tpa);
-                    date_default_timezone_set('America/Sao_Paulo');
-                    $data = new DateTime();
-                    $data=$data->format('Y/m/d H:i');
-                    $my_Insert_Statement->bindParam(':datc', $data);
-                    $my_Insert_Statement->bindParam(':aluno', $result['matricula']);
-                    $my_Insert_Statement->execute();
-                } else {
+                if (!$img_ok) {
                     die("erro ao salvar arquivo");
                 }
-            } else {
-                die("nenhuma imagem enviada");
             }
-            $my_Insert_Statement = $my_Db_Connection->prepare("INSERT INTO ticket (codigo_fk) VALUES (:cod)");
+            if ($locals) {
+                $my_Insert_Statement = $my_Db_Connection->prepare("update aluno set possui_ti=1,local_foto=:img,data_cria=:dt where matricula=:cod");
+                $my_Insert_Statement->bindParam(':img', $locals);
+            }else{
+                $my_Insert_Statement = $my_Db_Connection->prepare("update aluno set possui_ti=1,data_cria=:dt where matricula=:cod");
+            }
             $my_Insert_Statement->bindParam(':cod', $result['matricula']);
+            $my_Insert_Statement->bindParam(':dt', date("Y-m-d"));
             if ($my_Insert_Statement->execute()) {
                 header("location:login");
                 exit();

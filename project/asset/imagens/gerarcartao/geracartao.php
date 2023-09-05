@@ -12,12 +12,12 @@ define('HEIGHT',208*2);
 
 include "../../../../config/db.php";
 $result= $_SESSION['matricula'];
-$sql_bus = "SELECT local_arq FROM arquivos WHERE aluno_fk =". $result ."&& tipo='imagem_perfil'";
+$sql_bus = "select * from aluno where matricula=" . $_SESSION['matricula'] ." and local_foto is not null";
 $bus = $my_Db_Connection->prepare($sql_bus);
 $bus->execute();
 if ($bus->rowCount() == 1) {
     $result = $bus->fetch(PDO::FETCH_ASSOC);
-    $result=$result['local_arq'];
+    $result=$result['local_foto'];
     $url=array_filter(explode('/',$result));
     $result=$url[4].'/'.$url[5].'/'.$url[6];
 }else {

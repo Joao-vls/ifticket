@@ -1,11 +1,14 @@
+Prototipo
+
 REQUISITOS:
+ PHP MySQL apache
 
- Ativar o mod_rewrite  e configurar apache
 
-
- Ativar biblioteca gd
-
- Versao:
+ Ativar o mod_rewrite  e configurar apache para aceitar .htaccess no httpd.conf
+ Ativar bibliotecas gd pdo pdo_mysql mysqli no php.ini
+ criar banco sql config/bd/tck.sql
+ 
+Versao:
  
  Versão do servidor: 8.0.33 - MySQL Community Server - GPL
  PHP 8.2.7
